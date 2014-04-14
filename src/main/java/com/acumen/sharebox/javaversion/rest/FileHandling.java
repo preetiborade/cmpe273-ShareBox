@@ -17,6 +17,19 @@ import com.sun.jersey.multipart.FormDataParam;
  
 @Path("files")
 public class FileHandling {
+	
+	@GET
+    @Path("/download")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response downloadObjects(){
+    	
+    	String output="Files downloaded at location: /Users/preetiborade/Documents";
+    	AwsS3BucketHandling awsS3BucketHandling=new AwsS3BucketHandling();
+    	output=awsS3BucketHandling.getS3BucketObjects("/Users/preetiborade/Documents");
+    	System.out.println("OBJECT NAME::::: "+output);
+    	System.out.println("inside REST /download");
+    	return Response.status(200).entity(output).build();
+    }  
 
     @POST
     @Path("/upload")
